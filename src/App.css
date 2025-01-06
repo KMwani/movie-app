@@ -1,9 +1,10 @@
 body{
-    background-color:#000020;
+    background-color:linen;
 }
-.movie-header{
+.top{
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
     color: #FFD700;
     font-family:Arial, Helvetica, sans-serif;
@@ -12,7 +13,7 @@ body{
 .movie-container {
     display: flex; /* Use flexbox for the grid layout */
     flex-wrap: wrap; /* Wrap items onto multiple lines */
-    justify-content: space-between; /* Evenly distribute items, space between columns */
+    justify-content:left; /* Evenly distribute items, space between columns */
 }
 .empty{
     display: flex; /* Use flexbox for the grid layout */
@@ -22,17 +23,17 @@ body{
 }
 .moviecard {
     flex: 0 1 calc(20.0% - 10px); /* Adjust width of each card */
-    margin-bottom: 20px; /* Adjust vertical spacing between rows */
+    margin: 0.3%; /* Adjust vertical spacing between rows */
     display: flex; /* Ensures equal height for all cards */
     flex-direction: column; /* Ensures content determines height */
-    border: 1px solid #ccc;
+    border: 1px solid #1b1a1a;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease;
-    background-color: #fff;
-    width: 300px; /* Adjust width as per your design */
-    height: 100%; /* Ensures all cards have equal height and fit content */
+    background-color: #ffffff;
+    width:auto; /* Adjust width as per your design */
+    height: auto; /* Ensures all cards have equal height and fit content */
 }
 
 @media (max-width: 1200px) {
@@ -44,6 +45,15 @@ body{
 @media (max-width: 768px) {
     .moviecard {
         flex: 0 1 calc(50% - 10px); /* One card per row on mobile screens */
+    }
+}
+
+@media (max-width: 600px) {
+    .moviecard {
+        flex: 1 1 calc(50% - 10px); /* One card per row on mobile screens */
+    }
+    .movie-container{
+        justify-content: center;
     }
 }
 
@@ -83,50 +93,42 @@ body{
     color: #666;
     font-size: 0.9em;
 }
-.search {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding: 10px; /* Optional: Add padding for spacing */
-    border-radius: 8px; /* Optional: Add rounded corners */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add box shadow for depth */
-}
-
 
 .search-container {
-    width: 60%;
     display: flex;
     align-items: center;
-    border: 2px; /* Optional: border for visual separation */
     border-radius: 5px; /* Optional: rounded corners */
-    padding: 5px; /* Optional: adjust padding as needed */
-    background-color: #666;
-    color: #d7ee0b;
 }
 
 .search-container input[type="text"] {
     flex: 1; /* Takes up remaining space */
-    border: none;
-    outline: none;
-    padding: 8px; /* Adjust padding as needed */
     font-size: 16px; /* Adjust font size as needed */
     opacity: 0.6;
-    color: navy;
-}
-.search-container input::placeholder{
-    color: navy;
-
+    border-radius: 1.5em;
 }
 
 .search-container img {
     cursor: pointer;
-    margin-left: 0px; /* Optional: Adjust spacing between input and icon */
-    color: white;
+    margin: 3%; /* Optional: Adjust spacing between input and icon */
+    color: rgb(7, 247, 147);
 
 }
 .empty-center{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+footer{
+    background-color: black;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    
+}
+.ft{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 8%;
+    background-color: black;
+    margin: 2%;
 }

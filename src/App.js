@@ -19,8 +19,15 @@ const App = () => {
     useEffect(() => {
         searchMovies('superman');
     }, []);
+
+    const handleKeyDown = (event) => {
+        if (event.key === "Enter") {
+          searchMovies(Sterm);
+        }
+      };
 return(
    <div className="App">
+<div className='top'>
     <div className='movie-header'>
     <h1>Movie Search</h1>
     </div>
@@ -31,6 +38,7 @@ return(
            placeholder='Search for Movies'
            value={Sterm}
            onChange={(e) => setSterm(e.target.value)}
+           onKeyDown={handleKeyDown}
         />
         <img 
             src={SearchIcon}
@@ -39,7 +47,7 @@ return(
         />
     </div>
 </div>
-
+</div>
 
      
      { 
@@ -59,7 +67,11 @@ return(
      </div>
       )
      }
-      
+      <div className='ft'>
+        <footer>
+            @Copyright 2025
+        </footer>
+      </div>
    </div>
 );};
 
