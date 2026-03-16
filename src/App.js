@@ -14,44 +14,47 @@ const App = () => {
   const activeRequestRef = useRef(null);
   const requestIdRef = useRef(0);
 
-  const searchMovies = useCallback(async (title) => {
-    const query = title?.trim() || DEFAULT_QUERY;
-    const requestId = requestIdRef.current + 1;
-    requestIdRef.current = requestId;
+  const searchMovies = useCallback(
+    async (title) => {
+      const query = title?.trim() || DEFAULT_QUERY;
+      const requestId = requestIdRef.current + 1;
+      requestIdRef.current = requestId;
 
-    setIsLoading(true);
-    setMovies([]);
+      setIsLoading(true);
+      setMovies([]);
 
-    if (activeRequestRef.current) {
-      activeRequestRef.current.abort();
-    }
-
-    const controller = new AbortController();
-    activeRequestRef.current = controller;
-
-    try {
-      const response = await fetch(
-        API_URL + "&s=" + encodeURIComponent(query),
-        {
-          signal: controller.signal,
-        },
-      );
-      const data = await response.json();
-      if (requestId === requestIdRef.current) {
-        setMovies(Array.isArray(data.Search) ? data.Search : []);
+      if (activeRequestRef.current) {
+        activeRequestRef.current.abort();
       }
-    } catch (error) {
-      if (error.name !== "AbortError") {
+
+      const controller = new AbortController();
+      activeRequestRef.current = controller;
+
+      try {
+        const response = await fetch(
+          API_URL + "&s=" + encodeURIComponent(query),
+          {
+            signal: controller.signal,
+          },
+        );
+        const data = await response.json();
         if (requestId === requestIdRef.current) {
-          setMovies([]);
+          setMovies(Array.isArray(data.Search) ? data.Search : []);
+        }
+      } catch (error) {
+        if (error.name !== "AbortError") {
+          if (requestId === requestIdRef.current) {
+            setMovies([]);
+          }
+        }
+      } finally {
+        if (requestId === requestIdRef.current) {
+          setIsLoading(false);
         }
       }
-    } finally {
-      if (requestId === requestIdRef.current) {
-        setIsLoading(false);
-      }
-    }
-  }, [API_URL, DEFAULT_QUERY]);
+    },
+    [API_URL, DEFAULT_QUERY],
+  );
 
   useEffect(() => {
     searchMovies(DEFAULT_QUERY);
