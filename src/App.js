@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Moviecard from "./Moviecard";
 import SearchIcon from "./search.svg";
 
@@ -14,7 +14,7 @@ const App = () => {
   const activeRequestRef = useRef(null);
   const requestIdRef = useRef(0);
 
-  const searchMovies = async (title) => {
+  const searchMovies = useCallback(async (title) => {
     const query = title?.trim() || DEFAULT_QUERY;
     const requestId = requestIdRef.current + 1;
     requestIdRef.current = requestId;
@@ -51,7 +51,8 @@ const App = () => {
         setIsLoading(false);
       }
     }
-  };
+  }, [API_URL, DEFAULT_QUERY]);
+
   useEffect(() => {
     searchMovies(DEFAULT_QUERY);
 
@@ -60,7 +61,7 @@ const App = () => {
         activeRequestRef.current.abort();
       }
     };
-  }, []);
+  }, [searchMovies, DEFAULT_QUERY]);
 
   const handleSearchChange = (event) => {
     const value = event.target.value;
